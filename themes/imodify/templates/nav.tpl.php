@@ -440,44 +440,49 @@ break;
 			}
 			  }?>
 		<ul>
-        <li><span><?php echo l(substr($user->name,0,16),$link);?></span>
-          <ul>
-<?php 
-		      $result = db_query('SELECT n.nid, n.title FROM {node} n WHERE n.type= :type AND n.uid = :uid order by n.nid DESC ', array(':uid' => $user->uid,':type' => 'cars')); 
-			  
-			  $i=0;
-			  $liLinks='';?>
-<?php			  foreach ($result as $record){
-					$i++;
-			  		$liLinks.= '<li style="background:url(/themes/imodify/images/car-mini-icon.gif) 7px 30%  no-repeat; "><a href="/car-profile/'.$record->nid.'">'.$record->title.'</a></li>';
-			}?>
-            	<div class="submenumidbg" style="height:<?php echo $i>5?305:240;?>px;">
-                <?php if($i>0){?>
-                    <div class="txt" style="padding:0 0 10px 30px;">Select Car</div>
-					  <ul class="userOptions <?php echo $i>5?'scroller':'';?>">
-                      		<?php echo $liLinks;?>
-                      </ul>
+			<li>
+				<span class="user_nav_title_wrapper"><?php echo l(substr($user->name,0,16),$link);?></span>
+				<ul class="menu_wrapper">
+					<div class="menu_center">
+            <ul>
+              <?php 
+                $result = db_query('SELECT n.nid, n.title FROM {node} n WHERE n.type= :type AND n.uid = :uid order by n.nid DESC ', array(':uid' => $user->uid,':type' => 'cars')); 
+                $i=0;
+                $liLinks='';
+                
+                foreach ($result as $record){
+                  $i++;
+                  $liLinks.= '<li style="background:url(/themes/imodify/images/car-mini-icon.gif) 7px 30%  no-repeat; "><a href="/car-profile/'.$record->nid.'">'.$record->title.'</a></li>';
+              }?>
+              <?php if($i>0){?>
+                  <div class="txt" style="padding:0 0 10px 10px;">Select Car</div>
+                    <ul class="userOptions <?php echo $i>5?'scroller':'';?>">
+                      <?php echo $liLinks;?>
+
+                    </ul>
                     <div class="sepLog"></div>
                 <?php }?>
-                    <ul class="userOptions ">
-                        <li><a href="#">Account Settings</a></li>
-                        <li><a href="<?php echo base_path();?>node/add/car-status">Add Car Status</a></li>
-                        <li><a href="<?php echo base_path();?>node/add/cars">Add a Car</a></li>
-                        <li><a href="<?php echo base_path();?>node/add/gallery">Add a Gallery</a></li>
-                        <li><a href="<?php echo base_path();?>node/add/article">Add an Article</a></li>
-                        <li><a href="<?php echo base_path();?>node/add/event">Add an Event</a></li>
-                        <li><a href="#">Find Friends</a></li>
-                    </ul>
-                    <div class="sepLog"></div>
-                    <ul class="userOptions">
-                        <li class="lock"><a href="#" onclick="return false;">Mobile App</a></li>
-                        <li><?php echo l("Logout","user/logout");?></li>
-                    </ul>
-                </div>
-            	<div class="submenu_btm_curv"></div>
-          </ul>
-        </li>
-      </ul>
+                <ul class="userOptions">
+                  <li><a href="#">Account Settings</a></li>
+                  <li><a href="<?php echo base_path();?>node/add/car-status">Add Car Status</a></li>
+                  <li><a href="<?php echo base_path();?>node/add/cars">Add a Car</a></li>
+                  <li><a href="<?php echo base_path();?>node/add/gallery">Add a Gallery</a></li>
+                  <li><a href="<?php echo base_path();?>node/add/article">Add an Article</a></li>
+                  <li><a href="<?php echo base_path();?>node/add/event">Add an Event</a></li>
+                  <li><a href="#">Find Friends</a></li>
+                </ul>
+                <div class="sepLog"></div>
+                  <ul class="userOptions">
+                    <li class="lock"><a href="#" onclick="return false;">Mobile App</a></li>
+                    <li><?php echo l("Logout","user/logout");?></li>
+                  </ul>
+            </ul>
+    			</div>
+					<div class="menu_bottom"></div>
+				</ul>
+			</li>
+    </ul>
+    </ul>
 <?php	}else{
 		print l('Login',"user/login").' | '.l("Sign-up","user/register");
 		}?>
