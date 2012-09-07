@@ -254,7 +254,14 @@ function imodify_form_gallery_node_form_alter(&$form, &$form_state, $form_id) {
 
 
 function imodify_preprocess_page(&$variables) {
+  
+  $args = arg();
 
+if($args[0] == 'node' && $args[1] == 'add' && $args[2] == 'article' ){  
+  if ($variables[page][content][system_main][main]['#markup'] == 'You are not authorized to access this page.'){
+      $variables[page][content][system_main][main]['#markup'] = t('<h2>“You will need to be authorised to upload articles on iMODIFY." <br> Please contact us at <a href="mailto:admin@imodify.com.au" > admin@imodify.com.au</a></h2>');
+}
+}
   if (isset($variables['node'])) {
 //echo "<pre>";print_r($variables['node']->type); 
 
@@ -340,4 +347,11 @@ function get_profile_based_ids($id, $uid=0) {
 	}
 	$arr['nodetype']=$nnode->type;
 	return $arr;
+}
+
+function phphtemplate_preprocess_page(&$variables) {
+  
+  if ($variables['title'] == 'Access denied') {
+    $variables['content'] = t('Your updated message here');
+  }
 }

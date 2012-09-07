@@ -1,17 +1,17 @@
 <div id="add_car">
-  <h3><?php echo arg(1)=='add'?'ADD A CAR':'EDIT CAR';?></h3>
-  <table width="500" border="0" cellpadding="0" cellspacing="0">
-  	<tbody style="border:none;">
+ <h3><?php echo arg(1)=='add'?'ADD A CAR':'EDIT CAR';?></h3>
+  <table border="0" cellpadding="0" cellspacing="0">
+    <tbody style="border:none;">
     <tr>
       <td width="164" align="right"><?php if(arg(1)=='add'){?><img src="<?php echo base_path() . path_to_theme();?>/images/addcar.jpg" width="94" height="94" /><?php }else{echo '&nbsp;';};?></td>
       <td width="36">&nbsp;</td>
-      <td width="300"><?php print drupal_render_children($form['field_car_image']);?></td>
+      <td width="470"><?php print drupal_render_children($form['field_car_image']);?></td>
     </tr>
     <tr>
       <td colspan="3" align="center"><table width="450" border="0" cellspacing="0" cellpadding="8">
-      	<tbody style="border:none;">
+        <tbody style="border:none;">
         <tr>
-          <td><div style="float:left;"><?php print drupal_render_children($form['field_car_category']);?></div> <div style="float:left; font-size:10px;">Choose one or more</div></td>
+          <td><div style="float:left;"><?php print drupal_render_children($form['field_car_category']);?></div> <div style="float: left;font-size: 10px;padding-left: 5px;width: 120px;">Choose one or more by pressing the ‘CTRL’ key</div></td>
         </tr>
         <tr>
           <td><?php print drupal_render($form['title']); ?></td>
@@ -37,19 +37,18 @@
 <div style="display:none"><?php print drupal_render_children($form); ?></div>
 
 <script type="text/javascript" language="javascript">
-	$(document).ready(function(){
-		$("#overlay").css('min-width','550px')
-		$("#overlay").css('width','550px');
-		$("#overlay .container").css('width','528px');
-		$("#overlay #content").css('width','528px');
-		$("#overlay #content").css('margin','0');
-		$("#overlay-content").css('width','528px');
-		$("#overlay-content").css('width','528px');
-		$("#overlay-content").css('-moz-border-top-left-radius','15px');
-		$("#overlay-content").css('border-top-left-radius','15px');
-		$("#overlay-content").css('-moz-border-bottom-left-radius','15px');
-		$("#overlay-content").css('border-bottom-left-radius','15px');
-		$("#overlay-content").css('-moz-border-bottom-right-radius','15px');
-		$("#overlay-content").css('border-bottom-right-radius','15px');
-	});
+  $(document).ready(function(){
+    $("#overlay").css('max-width','725px')
+    $("#overlay").css('min-width','550px');
+    $("#overlay").css('width','550px');
+    $("#content").css('width','100%');
+    $("#overlay .container").css('width','100%');
+    $("#overlay #content").css('margin','0');
+    $("#overlay-content").css('-moz-border-top-left-radius','15px');
+    $("#overlay-content").css('border-top-left-radius','15px');
+    $("#overlay-content").css('-moz-border-bottom-left-radius','15px');
+    $("#overlay-content").css('border-bottom-left-radius','15px');
+    $("#overlay-content").css('-moz-border-bottom-right-radius','15px');
+    $("#overlay-content").css('border-bottom-right-radius','15px');
+  });
 </script>

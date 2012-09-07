@@ -1,14 +1,14 @@
 <div id="tnb">
     <div class="container <?php print $secondary_menu ? 'with-secondary-menu': 'without-secondary-menu'; ?>">
         <div class="logo">
-        	<?php if ($logo): ?>
+          <?php if ($logo): ?>
                   <a href="<?php print $front_page; ?>" title="<?php print t('Home'); ?>" rel="home" id="logo">
                     <img src="<?php print $logo; ?>" alt="<?php print t('Home'); ?>" />
                   </a>
             <?php endif; ?>
         </div>
         <div class="tnb">
-			<?php print render($page['header']); ?>
+      <?php print render($page['header']); ?>
         </div>
         <?php if ($main_menu): ?>
               <div id="main-menu" class="navigation">
@@ -25,7 +25,7 @@
                   ),
                 )); ?>
               </div> <!-- /#main-menu -->
-    	<?php endif; ?>
+      <?php endif; ?>
         <?php /*if ($secondary_menu): ?>
           <div id="secondary-menu" class="navigation">
             <?php print theme('links__system_secondary_menu', array(
@@ -53,18 +53,18 @@ global $user;
 if ($logged_in) 
 {
     if(in_array('siteadmin', $user->roles)){
-	  $link = 'admin/index';
+    $link = 'admin/index';
       }elseif(in_array('Automotive Supplier', $user->roles)){
-	  $result = db_query('SELECT n.nid FROM {node} n WHERE n.type= :type AND n.uid = :uid order by n.nid DESC limit 0,1 ', array(':uid' => $user->uid,':type' => 'supplier_profile')); 
-	  foreach ($result as $record){
-	    $link = 'supplier-profile/'.$record->nid; 
-	}
+    $result = db_query('SELECT n.nid FROM {node} n WHERE n.type= :type AND n.uid = :uid order by n.nid DESC limit 0,1 ', array(':uid' => $user->uid,':type' => 'supplier_profile')); 
+    foreach ($result as $record){
+      $link = 'supplier-profile/'.$record->nid; 
+  }
       }else{
-	  $result = db_query('SELECT n.nid FROM {node} n WHERE n.type= :type AND n.uid = :uid order by n.nid DESC limit 0,1 ', array(':uid' => $user->uid,':type' => 'cars')); 
-	  foreach ($result as $record){
-	    $link = 'car-profile/'.$record->nid; 
-	}
-      }	
+    $result = db_query('SELECT n.nid FROM {node} n WHERE n.type= :type AND n.uid = :uid order by n.nid DESC limit 0,1 ', array(':uid' => $user->uid,':type' => 'cars')); 
+    foreach ($result as $record){
+      $link = 'car-profile/'.$record->nid; 
+  }
+      } 
 echo l(substr($user->name,0,12),$link).' | '.l("logout","user/logout");//logout link
 }else{
 print l("login","user/login").' | '.l("Sign-up","user/register");
@@ -74,8 +74,8 @@ print l("login","user/login").' | '.l("Sign-up","user/register");
     </div>
 </div>
 <div class="container">
-	<div id="page">
-    	<?php if ($messages): ?>
+  <div id="page">
+      <?php if ($messages): ?>
             <div id="messages"><div class="section clearfix">
               <?php print $messages; ?>
             </div></div> <!-- /.section, /#messages -->
@@ -92,19 +92,19 @@ print l("login","user/login").' | '.l("Sign-up","user/register");
         
             <?php if ($page['sidebar_first']): ?>
               <div id="sidebar-first" class="column sidebar"><div class="section">
-              	<div id="left">
+                <div id="left">
                 <?php print render($page['sidebar_first']); ?>
               </div></div></div> <!-- /#left, /.section, /#sidebar-first -->
             <?php endif; ?>
-			<?php if ($page['two_col']): ?>
+      <?php if ($page['two_col']): ?>
             <div id="twoCol">
-				 <?php if ($page['two_col']): ?>
+         <?php if ($page['two_col']): ?>
                     <?php print render($page['two_col']); ?>
                 <?php endif; ?>
              <?php endif; ?>
              <?php if ($page['two_colleft']): ?>
             <div id="twoColLeft">
-				 <?php if ($page['two_colleft']): ?>
+         <?php if ($page['two_colleft']): ?>
                     <?php print render($page['two_colleft']); ?>
                 <?php endif; ?>
              <?php endif; ?>
@@ -133,8 +133,8 @@ print l("login","user/login").' | '.l("Sign-up","user/register");
                 <?php print $feed_icons; ?>
                 </div></div><!-- #content -->
                 <?php if ($page['two_colleft']): ?>
-                	</div> <!-- /#twoColLeft -->
-             	<?php endif; ?>
+                  </div> <!-- /#twoColLeft -->
+              <?php endif; ?>
                 <div id="right">
                     <?php if ($page['sidebar_second']): ?>
                       <div id="sidebar-second" class="column sidebar"><div class="section">
@@ -149,7 +149,7 @@ print l("login","user/login").' | '.l("Sign-up","user/register");
             
             <?php if ($page['two_col2']): ?>
             <div id="twoCol">
-				 <?php if ($page['two_col2']): ?>
+         <?php if ($page['two_col2']): ?>
                     <?php print render($page['two_col2']); ?>
                 <?php endif; ?>
             </div> <!-- /#twoCol -->    
@@ -157,7 +157,7 @@ print l("login","user/login").' | '.l("Sign-up","user/register");
              
              <?php if ($page['two_col3']): ?>
             <div id="twoCol">
-				 <?php if ($page['two_col3']): ?>
+         <?php if ($page['two_col3']): ?>
                     <?php print render($page['two_col3']); ?>
                 <?php endif; ?>
             </div> <!-- /#twoCol -->    

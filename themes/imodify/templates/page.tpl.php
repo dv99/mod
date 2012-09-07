@@ -1,5 +1,4 @@
 <?php
-
 /**
  * @file
  * Bartik's theme implementation to display a single Drupal page.
@@ -87,8 +86,8 @@
   require_once('nav.tpl.php');
 ?>
 <div class="container">
-	<div id="page">
-    	<?php if ($messages): ?>
+  <div id="page">
+      <?php if ($messages): ?>
             <div id="messages"><div class="section clearfix">
               <?php print $messages; ?>
             </div></div> <!-- /.section, /#messages -->
@@ -105,19 +104,19 @@
         
             <?php if ($page['sidebar_first']): ?>
               <div id="sidebar-first" class="column sidebar"><div class="section">
-              	<div id="left">
+                <div id="left">
                 <?php print render($page['sidebar_first']); ?>
               </div></div></div> <!-- /#left, /.section, /#sidebar-first -->
             <?php endif; ?>
-			<?php if ($page['two_col']): ?>
+      <?php if ($page['two_col']): ?>
             <div id="twoCol">
-				 <?php if ($page['two_col']): ?>
+         <?php if ($page['two_col']): ?>
                     <?php print render($page['two_col']); ?>
                 <?php endif; ?>
              <?php endif; ?>
              <?php if ($page['two_colleft']): ?>
             <div id="twoColLeft">
-				 <?php if ($page['two_colleft']): ?>
+         <?php if ($page['two_colleft']): ?>
                     <?php print render($page['two_colleft']); ?>
                 <?php endif; ?>
              <?php endif; ?>
@@ -146,8 +145,8 @@
                 <?php print $feed_icons; ?>
                 </div></div><!-- #content -->
                 <?php if ($page['two_colleft']): ?>
-                	</div> <!-- /#twoColLeft -->
-             	<?php endif; ?>
+                  </div> <!-- /#twoColLeft -->
+              <?php endif; ?>
                 <div id="right">
                     <?php if ($page['sidebar_second']): ?>
                       <div id="sidebar-second" class="column sidebar"><div class="section">
@@ -162,7 +161,7 @@
             
             <?php if ($page['two_col2']): ?>
             <div id="twoCol">
-				 <?php if ($page['two_col2']): ?>
+         <?php if ($page['two_col2']): ?>
                     <?php print render($page['two_col2']); ?>
                 <?php endif; ?>
             </div> <!-- /#twoCol -->    
@@ -170,7 +169,7 @@
              
              <?php if ($page['two_col3']): ?>
             <div id="twoCol">
-				 <?php if ($page['two_col3']): ?>
+         <?php if ($page['two_col3']): ?>
                     <?php print render($page['two_col3']); ?>
                 <?php endif; ?>
             </div> <!-- /#twoCol -->    

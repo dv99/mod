@@ -4,31 +4,31 @@ global $user,$theme_path, $base_url;
 
 $record2  = db_query("SELECT nid FROM `node` WHERE `uid`='".$user->uid."' AND `type`='cars' order by nid DESC limit 0,1");
 
-	foreach($record2 as $result2){
-	$nid=$result2->nid;
-	
-	$result3 = db_query('SELECT entity_id FROM {field_data_field_car} WHERE field_car_nid = :nid limit 0,1 ', array(':nid' => $nid)); 
-	  foreach ($result3 as $record3){
-	   $status_id = $record3->entity_id; 
-	}
-		
+  foreach($record2 as $result2){
+  $nid=$result2->nid;
+  
+  $result3 = db_query('SELECT entity_id FROM {field_data_field_car} WHERE field_car_nid = :nid limit 0,1 ', array(':nid' => $nid)); 
+    foreach ($result3 as $record3){
+     $status_id = $record3->entity_id; 
+  }
+    
 }
 
  $record1  = db_query("SELECT nid FROM `node` WHERE `uid`=".$user->uid." AND type='garage'");
 
-	foreach($record1 as $result1){
-	$garage_id=$result1->nid;
+  foreach($record1 as $result1){
+  $garage_id=$result1->nid;
 
 ?>
 
 <script type="text/javascript">
  function cls_articles(){
   
-	val1=$('#edit-jump5').val();
-	
-	$("#block-views-articles-select-articles").html('<div style="padding-left:300px; padding-top:250px;"><img src="/sites/default/files/ajax-loader1.gif" width="50" height="20"/></div>');
-	
-	  
+  val1=$('#edit-jump5').val();
+  
+  $("#block-views-articles-select-articles").html('<div style="padding-left:300px; padding-top:250px;"><img src="/sites/default/files/ajax-loader1.gif" width="50" height="20"/></div>');
+  
+    
   viewName = 'articles';
   //viewArgument =  val;
    
@@ -46,9 +46,9 @@ $record2  = db_query("SELECT nid FROM `node` WHERE `uid`='".$user->uid."' AND `t
  
  function cls_events(){
   
-	val1=$('#edit-jump5').val();
-	
-		$("#block-views-events-new-select-events").html('<div style="padding-left:300px; padding-top:200px;"><img src="/sites/default/files/ajax-loader1.gif" width="50" height="20"/></div>');
+  val1=$('#edit-jump5').val();
+  
+    $("#block-views-events-new-select-events").html('<div style="padding-left:300px; padding-top:200px;"><img src="/sites/default/files/ajax-loader1.gif" width="50" height="20"/></div>');
   
   viewName = 'events';
    
@@ -67,15 +67,15 @@ $record2  = db_query("SELECT nid FROM `node` WHERE `uid`='".$user->uid."' AND `t
 
  function click_default(){
   
-	val1=$('#edit-jump5').val();
-	
-	if (val1 == 'Garage'){
+  val1=$('#edit-jump5').val();
+  
+  if (val1 == 'Garage'){
 
-	window.location.href = "<?php echo $base_url;?>/garage/<?php echo $garage_id;?>";
+  window.location.href = "<?php echo $base_url;?>/garage/<?php echo $garage_id;?>";
 
-	}else if(val1 == 'Update Car Status'){
-	
-	window.location.href = "<?php echo $base_url;?>/node/<?php echo $status_id;?>/edit/car-status";
+  }else if(val1 == 'Update Car Status'){
+  
+  window.location.href = "<?php echo $base_url;?>/node/<?php echo $status_id;?>/edit/car-status";
  }
  }
  $(document).ready(function(){
@@ -88,43 +88,43 @@ $record2  = db_query("SELECT nid FROM `node` WHERE `uid`='".$user->uid."' AND `t
 
 <form method="post" name="car model" action="">
 <div class="selectList" >
-<label style="padding-left:10px;">SELECT ACTION:</label>
+<label style="padding-left:10px;">MENU:</label>
 <select name="jump5" id="edit-jump5" >
 <option  value="all">Select</option>
-	<?php 
-		if(arg(0) == "articles"){
+  <?php 
+    if(arg(0) == "articles"){
 
-		$vid=9;
-		$v=taxonomy_get_tree($vid, $parent = 0, $max_depth = NULL, $load_entities = FALSE);
-		foreach ($v as $record)
-		{
-			echo "<option  value='".$tid=$record->tid."'>".$name=$record->name."</option>";
-		}
-		
-		
-		}
-		elseif(arg(0) == "events"){
+    $vid=9;
+    $v=taxonomy_get_tree($vid, $parent = 0, $max_depth = NULL, $load_entities = FALSE);
+    foreach ($v as $record)
+    {
+      echo "<option  value='".$tid=$record->tid."'>".$name=$record->name."</option>";
+    }
+    
+    
+    }
+    elseif(arg(0) == "events"){
 
-		$vid=10;
-		$v=taxonomy_get_tree($vid, $parent = 0, $max_depth = NULL, $load_entities = FALSE);
-		foreach ($v as $record)
-		{
-			echo "<option  value='".$tid=$record->tid."'>".$name=$record->name."</option>";
-		}
-		}
-		else
-		{
-		echo "<option  value='Garage'>Garage</option>";
-			echo "<option  value='Update Car Status'>Update Car Status</option>";
-			echo "<option class='lefLock' value='Repairs & Services'>Repairs & Services</option>";
-			echo "<option class='lefLock' value='Car Designs'>Car Designs</option>";
-			echo "<option class='lefLock' value='Upgrades & Tuning'>Upgrades & Tuning</option>";
-			echo "<option class='lefLock' value='Maintain & Protect'>Maintain & Protect</option>";
-			echo "<option class='lefLock' value='Q&A / Discussions'>Q&A / Discussions</option>";
-			echo "<option class='lefLock' value='Test & Showcase'>Test & Showcase</option>";
-		
-		}
-		?>
+    $vid=10;
+    $v=taxonomy_get_tree($vid, $parent = 0, $max_depth = NULL, $load_entities = FALSE);
+    foreach ($v as $record)
+    {
+      echo "<option  value='".$tid=$record->tid."'>".$name=$record->name."</option>";
+    }
+    }
+    else
+    {
+    echo "<option  value='Garage'>Garage</option>";
+      echo "<option  value='Update Car Status'>Update Car Status</option>";
+      echo "<option class='lefLock' value='Repairs & Services'>Repairs & Services</option>";
+      echo "<option class='lefLock' value='Car Designs'>Car Designs</option>";
+      echo "<option class='lefLock' value='Upgrades & Tuning'>Upgrades & Tuning</option>";
+      echo "<option class='lefLock' value='Maintain & Protect'>Maintain & Protect</option>";
+      echo "<option class='lefLock' value='Q&A / Discussions'>Q&A / Discussions</option>";
+      echo "<option class='lefLock' value='Test & Showcase'>Test & Showcase</option>";
+    
+    }
+    ?>
 </select></div>
 <div id="take"></div>
 </form>

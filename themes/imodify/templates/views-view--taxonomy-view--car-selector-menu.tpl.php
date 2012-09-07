@@ -28,6 +28,9 @@ $("#cat select option:first-child").attr("selected", true);
 }
  
  function clic(){
+   $('#filter').addClass("active");
+   $('#main-article').removeClass("active");
+
   val1=$('#edit-jump2').val();
 	val2=$('#edit-jump3').val();
 	val3=$('#edit-jump4').val();

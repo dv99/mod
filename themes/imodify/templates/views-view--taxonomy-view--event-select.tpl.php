@@ -27,7 +27,8 @@ $("#cat select option:first-child").attr("selected", true);
 }
  
  function clic(){
-  val1=$('#edit-jump2').val();
+	
+    val1=$('#edit-jump2').val();
 	val2=$('#edit-jump3').val();
 	val3=$('#edit-jump4').val();
 	var imgLoading = '<img src="/sites/default/files/ajax-loader1.gif"/>';
@@ -54,6 +55,7 @@ $('.selectList .views-exposed-form select').customSelect();
 }
 });*/
 </script>
+
 <div class="<?php print $classes; ?>">
 </br></br>
 <form method="post" name="car model" action="#">
