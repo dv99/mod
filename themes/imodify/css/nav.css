@@ -149,7 +149,7 @@ link of each child item
 .submenu_btm_curv{background:url(../images/submenu_btm_curv.png) no-repeat; height:13px}
 
 
-#login_nav{list-style: none; margin-top: 18px; padding:0 0 0 38px; font-size: 12px; font-weight:bold; color:#9B9B9C; float: right; position: relative; width:100px; height:25px; background:url(../images/logomini.png) no-repeat top left; /*background:url(../images/icon_login.png) no-repeat top right;*/} 
+#login_nav{list-style: none; margin-top: 18px; padding:0 0 0 38px; font-size: 12px; font-weight:bold; color:#9B9B9C; float: right; position: relative; width:100px; height:25px;  /*background:url(../images/icon_login.png) no-repeat top right;*/} 
 #login_nav a{color:#E4A609}
 
 #login_nav ul{ margin:0; padding:0;  float:right;}
@@ -168,12 +168,12 @@ link of each child item
 #login_nav .submenumidbg ul.scroller li:hover{background-color:#847150 !important;}
 #login_nav .submenumidbg li.lock a:hover{color:#000;}
 #login_nav .submenumidbg li.lock:hover{color:#000; background:url(../images/navlock.png) no-repeat 180px center #847150;}
-#login_nav .submenu_btm_curv{background:url(../images/submenu_btm_curv.png) no-repeat; height:13px}
+#login_nav .submenu_btm_curv{background:url(../images/submenu_btm_curv.png) no-repeat; height:13px;	}
 
 #login_nav .submenumidbg .sepLog{width:150px; border:1px solid #3B3B39; margin: auto; position: relative; clear: both;}
-
-#login_nav ul li ul{display:none; border:none; position:absolute; z-index:9999; left:-120px; top:30px; width:213px; padding-top:23px; background:url(../images/login.png) no-repeat top right;}
-
+#login_nav ul.menu_wrapper .sepLog{width:150px; border:1px solid #3B3B39; margin: auto; position: relative; clear: both;}
+#login_nav ul li ul.menu_wrapper{display:none; border:none; position:absolute; z-index:9999; left:-115px; top:30px; width:213px; padding-top:23px; background:url(../images/login.png) no-repeat top right;}
+#login_nav ul li ul.menu_wrapper ul {float:none; margin-left:10px;}
 #login_nav ul li:hover ul{display:block;}
 
 #loginbox{background:url(../images/submenubg.png) repeat-y center top; padding:0 0 0 0; position:relative; z-index:999999; height:100%}
@@ -233,3 +233,39 @@ link of each child item
 .rollModStyles a:hover{background-color:#847150 !important; color:#f0c86c !important;}
 
 #overlay #tnb{display:none !important;}
+
+
+
+
+
+#login_nav ul.menu_wrapper{background:url(../images/submenubg.png) repeat-y center top; padding:0 0 0 0; position:relative; z-index:999999;}
+#login_nav ul.menu_wrapper a{color:#9B9B9C;line-height: 20px;}
+#login_nav ul.menu_wrapper .scroller a{color:#FFF !important;}
+#login_nav ul.menu_wrapper a:hover{color:#EFC66C;}
+#login_nav ul.menu_wrapper .scroller a:hover{color:#EFC66C !important;}
+#login_nav ul.menu_wrapper ul.userOptions{display:block !important; float:left; margin:0; padding:0; left:0; background:none; position:relative; top:0;}
+#login_nav ul.menu_wrapper ul.userOptions li{width:175px; margin:0; padding:0 0 0 10px;}
+#login_nav ul.menu_wrapper ul.userOptions li:hover{background-color:#847150;}
+#login_nav ul.menu_wrapper ul li:hover{background-color:#847150;}
+#login_nav ul.menu_wrapper ul.scroller li:hover{background-color:#847150 !important;}
+#login_nav ul.menu_wrapper li.lock a:hover{color:#000;}
+#login_nav ul.menu_wrapper li.lock:hover{color:#000; background:url(../images/navlock.png) no-repeat 98% center #847150;}
+.user_nav_title_wrapper {text-align:right;background: url("../images/logomini.png") no-repeat scroll left top transparent; pading-left:20px; display:block;}
+#login_nav ul.menu_wrapper .vert .simply-scroll-clip {
+    height: auto;
+    max-height: 100px;
+    width: 100%;
+}
+#login_nav ul.menu_wrapper .simply-scroll-btn {
+    background-image: url("../images/buttons.png");
+    cursor: pointer;
+    height: 16px;
+    position: absolute;
+    width: 15px;
+    z-index: 3;
+}
+#login_nav ul.menu_wrapper .vert {
+    height: auto;
+    max-height: 100px;
+    width: 100%;
+}
