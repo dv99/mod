@@ -1,0 +1,235 @@
+@charset "utf-8";
+/* CSS Document */
+
+/** top navigation bar **/
+#tnb {width:100%; clear:both; margin:0; background:url(../images/bg_tnb.png) repeat-x 0 0; height:51px; float:left;}
+#tnb .logo {float:left;}
+#tnb ul {margin:0; margin-top:18px; padding:0; float:left; z-index:490;}
+#tnb li {list-style:none;}
+
+#tnb .search {float:left; margin:18px 0 0 10px; width:235px;}
+@media screen and (-webkit-min-device-pixel-ratio:0){
+	#tnb .search {margin:15px 0 0 10px;}
+}
+#tnb .search input[type=text] {float:left; border:none; background:url(../images/input_search.png) no-repeat 0 0; width:215px; outline:none; font-size:11px; padding:3px 0 3px 25px;}
+#tnb .search input[type=submit] {float:right; margin-top:-19px; border:0; width:36px; background:none; cursor:pointer;}
+@media screen and (-webkit-min-device-pixel-ratio:0){
+	#tnb .search input[type=submit] {margin-top:-21px;}
+}
+.evoracer {float:right; margin-top:17px;}
+.tomcruise {float:right; margin-top:18px;}
+
+
+
+
+/* CSS for each Parent Item */
+
+
+#nav li a
+{
+	float: left;
+	display: block;
+	text-decoration: none;
+	color:#282828;
+	/*padding-right: 10px; width:35px;*/
+	height:40px
+}
+
+/* 
+Change background color and font color 
+of parent items when mouse hover 
+*/
+#nav li:hover a,
+#nav li a:hover
+{
+	
+	color: #282828	;	
+}
+/* 
+Applie to group of Child Items
+Each Child Item will be invisible by default
+*/
+#nav ul {display: none;}
+
+/* Each Child Item will be visible if mouse hover */
+#nav li:hover ul {display: block;}
+
+#nav ul
+{
+	float: none;
+	position: absolute;
+	list-style: none;
+	margin-top:4px;
+	padding: 0;
+	top: 1.8em;
+	left: 0; 
+}
+
+#nav ul li
+{
+	float: none;
+	clear: none;
+	margin:0;
+	padding: 0;
+	width: 250px;
+	color: #fff; background:#282828
+}
+#nav ul li a{ width:35px; line-height:35px}
+#nav ul li.box
+{
+	float: none;
+	clear: none;
+	padding: 0;
+	width: 980px;
+	margin-top:0;
+	color: #fff; background-color:#282828; 
+	height:100%;
+}
+
+
+/* 
+Reset and re style 
+link of each child item
+*/
+#nav li:hover ul li a,
+#nav ul li a
+{
+	line-height:20px;
+	display: block;
+	padding: 0 6px 0 0;
+	float: none;
+	text-transform: lowercase;
+	color: #fff;
+	background: #333;
+}
+
+#nav li:hover ul li a:hover,
+#nav ul li a:hover
+{
+	color: #000;
+}
+
+
+.nav_menu{ padding:10px; text-align:center; clear:both; font-size:11px}
+.nav_menu .product_category{ width:274px; text-align:center; border-right:solid 1px #727171; padding:25px 0;}
+.nav_menu .product_category h1{ font-size:22px; font-weight:bold}
+
+.nav_menu .content{margin-top:25px; margin-bottom:25px; width:630px; padding-left:35px; text-align:left}
+.nav_menu .content h1{ color:#ffdd75; font-size:15px}
+.nav_menu .yellow{ color:#ffdd75}
+
+#navcar{width: 955px; text-align:center; height:150px;}
+#navcar .car ul{ display:inline; margin:0; padding:0}
+#navcar .car li{ display:block; width:191px; height:150px; float:left; position:relative}
+
+
+/** form **/
+#navcar select[name=select] {
+	float:left;
+	border:none;
+	background: url(images/drop_field.jpg) no-repeat;
+	width:130px; 
+	outline:none;
+	font-size:11px;
+	padding:0px 2px 0px 5px;
+	height:20px;
+/** form **/
+}
+
+
+
+#nav_states{list-style: none; margin-top: 18px; padding: 0; font-size: 1.2em; color:#FFF; float: left; position: relative; width:60px; height:40px; background:url(../images/menu_country.png) no-repeat;} 
+
+#nav_states ul{ margin:0; padding:0;  background:url(../images/topnavrbg.png) no-repeat top right; float:left;}
+#nav_states ul li{position: relative; height:20px; margin-right:10px; width:51px;}
+#nav_states ul li a{display:block; height:45px}
+
+
+.submenumidbg{background:url(../images/submenubg.png) repeat-y center top; padding:0 0 0 0; position:relative; z-index:999999}
+.submenu_btm_curv{background:url(../images/submenu_btm_curv.png) no-repeat; height:13px}
+
+
+#login_nav{list-style: none; margin-top: 18px; padding:0 0 0 38px; font-size: 12px; font-weight:bold; color:#9B9B9C; float: right; position: relative; width:100px; height:25px; background:url(../images/logomini.png) no-repeat top left; /*background:url(../images/icon_login.png) no-repeat top right;*/} 
+#login_nav a{color:#E4A609}
+
+#login_nav ul{ margin:0; padding:0;  float:right;}
+#login_nav ul li{position: relative; height:20px; width:100px;}
+#login_nav ul li a{display:block; height:45px}
+
+#login_nav .submenumidbg{background:url(../images/submenubg.png) repeat-y center top; padding:0 0 0 0; position:relative; z-index:999999; min-height:240px;}
+#login_nav .submenumidbg a{color:#9B9B9C;}
+#login_nav .submenumidbg .scroller a{color:#FFF !important;}
+#login_nav .submenumidbg a:hover{color:#EFC66C;}
+#login_nav .submenumidbg .scroller a:hover{color:#EFC66C !important;}
+#login_nav .submenumidbg ul.userOptions{display:block !important; float:left; margin:0; padding:0; left:0; background:none; width:213px; position:relative; top:0;}
+#login_nav .submenumidbg ul.userOptions li{width:183px; margin:0; padding:0 0 0 30px;}
+#login_nav .submenumidbg ul.userOptions li:hover{background-color:#847150;}
+#login_nav .submenumidbg ul li:hover{background-color:#847150;}
+#login_nav .submenumidbg ul.scroller li:hover{background-color:#847150 !important;}
+#login_nav .submenumidbg li.lock a:hover{color:#000;}
+#login_nav .submenumidbg li.lock:hover{color:#000; background:url(../images/navlock.png) no-repeat 180px center #847150;}
+#login_nav .submenu_btm_curv{background:url(../images/submenu_btm_curv.png) no-repeat; height:13px}
+
+#login_nav .submenumidbg .sepLog{width:150px; border:1px solid #3B3B39; margin: auto; position: relative; clear: both;}
+
+#login_nav ul li ul{display:none; border:none; position:absolute; z-index:9999; left:-120px; top:30px; width:213px; padding-top:23px; background:url(../images/login.png) no-repeat top right;}
+
+#login_nav ul li:hover ul{display:block;}
+
+#loginbox{background:url(../images/submenubg.png) repeat-y center top; padding:0 0 0 0; position:relative; z-index:999999; height:100%}
+
+
+
+/* Hemant Css start here */
+
+#nav li.one ul{display:none; border:none; position:absolute; z-index:9999; left:-14px; top:24px; width:213px; padding-top:23px; background:url(../images/submenubg-top.png) no-repeat left top; list-style-type:none}
+
+#nav li.one:hover ul{display:block;}
+#nav li.one .txt{ font-size:11px; color:#a5a5a7; padding-left:17px; padding-bottom:8px; padding-top:10px}
+#nav li.one ul li a{ line-height:26px; height:auto !important; padding-left:17px }
+#nav li.one ul li a .img{ float:left; display:block; margin-right:6px; padding-top:3px;}
+#nav li.one ul li a span{font-size:11px; color:#EFC66C; text-transform:none; cursor:pointer; float:left; position: absolute; font-weight:bold}
+#nav li.one ul li a:hover span, #nav li.one ul li#current a span{color:#EFC66C}
+#nav li.one ul li:hover{float:none; line-height:normal; width:213px; color:#000; border:none; background-color:#847150;}
+#nav li.one ul li.lock a span{font-size:11px; color:#a5a5a7; text-transform:none; cursor:pointer; float:left; position: absolute; font-weight:bold}
+#nav li.one ul li.lock a:hover span{color:#000;}
+#nav li.one ul li.lock:hover{float:none; line-height:normal; width:213px; color:#000; border:none; background:url(../images/navlock.png) no-repeat 180px center #847150}
+#nav li.one ul li{margin:0; padding:0; border:none; width:213px; line-height:normal; height:26px; border:none; clear:both;}
+
+#tnb li:first-child { padding:0; background:none}
+#nav li{float:left; position:relative; height:21px; background:url(../images/menu_separator.png) no-repeat top left; padding:0 0 0 2px;}
+#nav{margin-top: 15px; 	padding: 0;	font-size: 1.2em; color:#FFF;	float: left;	position: relative; height:40px}
+
+.innerbox img{ float:left}
+
+#tnb .search {float:left; margin:18px 0 0 10px; width:235px;}
+@media screen and (-webkit-min-device-pixel-ratio:0){
+	#tnb .search {margin:15px 0 0 10px;}
+}
+#tnb .search input[type=text] {float:left; border:none; background:url(../images/input_search.png) no-repeat 0 0; width:215px; outline:none; font-size:11px; padding:3px 0 3px 25px;}
+#tnb .search input[type=submit] {float:right; margin-top:-19px; border:0; width:36px; background:none; cursor:pointer;}
+#tnb .form-item-search-block-form {float:left; margin-top:15px;}
+#tnb #block-search-form input[type=text]{float:left; border:none; background:url(../images/input_search.png) no-repeat 0 0; width:215px; outline:none; font-size:11px; padding:3px 0 3px 25px;}
+#tnb #block-search-form input[type=submit] {float:left; margin:18px 0 0 -41px; text-indent:-9999px; border:0; width:36px; background:none; cursor:pointer;}
+@media screen and (-webkit-min-device-pixel-ratio:0){
+	#tnb .search input[type=submit] {margin-top:-21px;}
+	#tnb #block-search-form input[type=submit] {margin:18px 0 0 -41px;}
+}
+
+/* Car-Makes Menu styles */
+
+.rollCarMakes{width:630px; margin:auto;}
+.rollCarMakes a{width:63px !important; height:42px !important; float:left !important; background:none !important; text-align:center; padding:10px 0 0 !important;}
+.rollCarMakes a:hover{background:url(../images/logo-cm_h.png) no-repeat 0 50% !important;}
+
+/* Action Tools Menu styles */
+
+.rollActTools{width:630px; float:left;}
+.rollActTools a{width:auto !important; height:112px !important; float:left !important; background:none !important; text-align:center; margin:0 !important; padding:0 !important;}
+
+/* Mod Styles Menu styles */
+
+.rollModStyles a{width:auto !important; height:20px !important; background:none !important; margin:0 !important; padding:5px 0 0 7px !important; text-transform:none !important; line-height:normal !important; }
+.rollModStyles a:hover{background-color:#847150 !important; color:#f0c86c !important;}
+
+#overlay #tnb{display:none !important;}
