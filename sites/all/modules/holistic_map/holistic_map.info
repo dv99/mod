@@ -1,0 +1,7 @@
+; $Id$
+name = Holistic Map
+description = A Nice Map View of all your Geo-located Content
+package = "Holistic Systems"
+core = 7.x
+
+version = "7.x-1.0"

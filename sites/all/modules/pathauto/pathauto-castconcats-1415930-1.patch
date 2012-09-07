@@ -1,0 +1,49 @@
+diff --git a/pathauto.pathauto.inc b/pathauto.pathauto.inc
+index 28d3ce0..7cc627a 100644
+--- a/pathauto.pathauto.inc
++++ b/pathauto.pathauto.inc
+@@ -90,7 +90,7 @@ function node_pathauto_bulk_update_batch_process(&$context) {
+   }
+ 
+   $query = db_select('node', 'n');
+-  $query->leftJoin('url_alias', 'ua', "CONCAT('node/', n.nid) = ua.source");
++  $query->leftJoin('url_alias', 'ua', "CONCAT('node/', CAST(n.nid AS CHAR)) = ua.source");
+   $query->addField('n', 'nid');
+   $query->isNull('ua.source');
+   $query->condition('n.nid', $context['sandbox']['current'], '>');
+@@ -164,7 +164,7 @@ function taxonomy_pathauto_bulk_update_batch_process(&$context) {
+   }
+ 
+   $query = db_select('taxonomy_term_data', 'td');
+-  $query->leftJoin('url_alias', 'ua', "CONCAT('taxonomy/term/', td.tid) = ua.source");
++  $query->leftJoin('url_alias', 'ua', "CONCAT('taxonomy/term/', CAST(td.tid AS CHAR)) = ua.source");
+   $query->addField('td', 'tid');
+   $query->isNull('ua.source');
+   $query->condition('td.tid', $context['sandbox']['current'], '>');
+@@ -230,7 +230,7 @@ function forum_pathauto_bulk_update_batch_process(&$context) {
+   }
+ 
+   $query = db_select('taxonomy_term_data', 'td');
+-  $query->leftJoin('url_alias', 'ua', "CONCAT('forum/', td.tid) = ua.source");
++  $query->leftJoin('url_alias', 'ua', "CONCAT('forum/', CAST(td.tid AS CHAR)) = ua.source");
+   $query->addField('td', 'tid');
+   $query->isNull('ua.source');
+   $query->condition('td.tid', $context['sandbox']['current'], '>');
+@@ -293,7 +293,7 @@ function user_pathauto_bulk_update_batch_process(&$context) {
+   }
+ 
+   $query = db_select('users', 'u');
+-  $query->leftJoin('url_alias', 'ua', "CONCAT('user/', u.uid) = ua.source");
++  $query->leftJoin('url_alias', 'ua', "CONCAT('user/', CAST(u.uid AS CHAR)) = ua.source");
+   $query->addField('u', 'uid');
+   $query->isNull('ua.source');
+   $query->condition('u.uid', $context['sandbox']['current'], '>');
+@@ -355,7 +355,7 @@ function blog_pathauto_bulk_update_batch_process(&$context) {
+   }
+ 
+   $query = db_select('users', 'u');
+-  $query->leftJoin('url_alias', 'ua', "CONCAT('blog/', u.uid) = ua.source");
++  $query->leftJoin('url_alias', 'ua', "CONCAT('blog/', CAST(u.uid AS CHAR)) = ua.source");
+   $query->addField('u', 'uid');
+   $query->isNull('ua.source');
+   $query->condition('u.uid', $context['sandbox']['current'], '>');

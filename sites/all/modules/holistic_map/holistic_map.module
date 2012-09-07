@@ -1,0 +1,316 @@
+<?php
+
+function holistic_map_init()
+{
+  $api_key = variable_get('googlemap_api_key', '');
+  drupal_add_js('http://maps.google.com/maps?file=api&v=2&sensor=false&key='.$api_key, 'external');
+
+  drupal_add_js('sites/all/modules/holistic_map/js/widgets/menu.js', array('type'=>'file','scope'=>'header','group'=>1001,'every_page'=>TRUE));
+  drupal_add_js('sites/all/modules/holistic_map/js/system.js', array('type'=>'file','scope'=>'header','group'=>1001,'every_page'=>TRUE));
+  drupal_add_js('sites/all/modules/holistic_map/js/map_client.js', array('type'=>'file','scope'=>'header','group'=>1001,'every_page'=>TRUE));
+
+}
+
+function holistic_map_menu() {
+  $items = array();
+
+  $items['map2'] = array(
+    'title' => t('Interactive Map'), 
+    'page callback' => 'holistic_map_view2', 
+    'access arguments' => array('access content'), 
+    'type' => MENU_CALLBACK,
+  );
+
+  $items['map'] = array(
+    'title' => t('Interactive Map'), 
+    'page callback' => 'holistic_map_view', 
+    'access arguments' => array('access content'), 
+    'type' => MENU_CALLBACK,
+  );
+
+  $items['map_json'] = array(
+    'page callback' => 'holistic_map_json', 
+    'access arguments' => array('access content'), 
+    'type' => MENU_CALLBACK,
+  );
+
+
+  return $items;
+}
+
+function holistic_map_view(){
+
+  drupal_set_title(t('Greenwich Interactive Map'));
+
+  drupal_add_js("var hmap = ".holistic_map_json_data(), array('type'=>'inline','scope'=>'header','group'=>1001,'every_page'=>FALSE));
+
+  $output = '<div id="holistic_map"></div><script type="text/javascript"><!--//--><![CDATA[//><!--'."\n".'$(document).ready( function(){holistic_map_init();} );'."\n".'//--><!]]></script>';
+  return $output;
+}
+
+function holistic_map_json(){
+	//drupal_json_output(holistic_map_json_data());
+	drupal_add_http_header('Content-Type', 'application/json');
+	/*
+	drupal_add_http_header("CacheControl: public");
+   drupal_add_http_header("Pragma: cache");
+   drupal_add_http_header("Expires: 86400"); // expires after 1 day
+   */
+ 	print holistic_map_json_data();
+}
+
+function holistic_map_json_data()
+{
+  $taxonomies = taxonomy_get_vocabularies();
+  $tree = '{';
+  foreach ($taxonomies as $taxonomy){
+    //print "vid=".$taxonomy->vid."<br/>";
+    if (in_array($taxonomy->vid, array(1,8,3))){
+      //TODO: make this configurable via a UI
+      //print "vid=".$taxonomy->vid."<br/>";
+      $taxonomy->tree = taxonomy_get_tree($taxonomy->vid,0,null,true);
+      //print "<pre>"; var_dump($taxonomy->tree); print "</pre>";
+      $terms = array();
+      foreach($taxonomy->tree as $term){
+        $terms[]= array(
+          'tid'=>$term->tid,
+          'name'=>$term->name,
+          'map_icon'=>(isset($term->field_map_icon['und'])?$term->field_map_icon['und'][0]['filename']:null),
+          'parents'=>$term->parents,
+          'url'=>drupal_get_path_alias('taxonomy/term/'.$term->tid),
+        );
+        
+      }
+      if ($tree != '{') $tree .= ',';
+      $tree .= '"'.$taxonomy->vid.'":'.
+          drupal_json_encode(array(
+            'vid'=>$taxonomy->vid,
+            'name'=>$taxonomies[$taxonomy->vid]->name,
+            'map_icon'=>(false)?$term->field_map_icon['und'][0]['filename']:null,
+            'terms'=>$terms
+          ));
+      //if ($taxonomy->vid == 3) {print "<pre>"; var_dump($taxonomy->tree); print "</pre>"; die();}
+
+    }
+  }
+  $tree .= '}';
+
+  //print "<pre>"; var_dump($tree); print "</pre>";
+  
+  /*{
+    {tid:1, name:"name", icon:"icon"} 
+
+  }*/
+
+  /* 
+$query = db_select('taxonomy_term_data','t');
+  $query->join('taxonomy_vocabulary','tv','t.vid=tv.vid');
+  $query->join('taxonomy_term_hierachy','tth','t.tid=tth.tid');
+  $query->join('field_data_field_map_icon','fdf_mi','t.tid=fdf_mi.entity_id and fdf_mi.entity_id=\'taxonomy_term\'');
+  $query->join('file_managed','fm','fdf_mi.field_map_icon_fid = fm.fid');
+  $query->fields('t',array('tid','vid'))
+    ->fields('tv',array('description'))
+    ->fields('tth',array('parent'))
+    ->fields('fm',array('uri'))
+    ->orderBy('tv.weight','desc')
+    ->orderBy('tv.vid','asc')
+    */
+
+  
+  
+  $query = db_select('node', 'n');
+  $query->join('location_instance','loci' ,'loci.nid = n.nid');
+  $query->join('location'         ,'loc'  ,'loc.lid = loci.lid');
+  $query->leftJoin('field_data_field_phone','fdf_tel','fdf_tel.entity_id = n.nid');
+  $query->leftJoin('field_data_field_email','fdf_email','fdf_email.entity_id = n.nid');
+  $query->leftJoin('field_data_field_web_address','fdf_web','fdf_web.entity_id = n.nid');
+  $query->leftJoin('field_data_field_shop_photos','fdf_shop_photos','(fdf_shop_photos.entity_id = n.nid and fdf_shop_photos.delta=0)');
+  $query->leftJoin('field_data_field_image','fdf_image','(fdf_image.entity_id = n.nid and fdf_image.delta=0)');
+  $query->leftJoin('file_managed','fm','fm.fid = fdf_shop_photos.field_shop_photos_fid or fm.fid = fdf_image.field_image_fid');
+  $query->leftJoin('field_data_field_shop_categories','fdf_shop_categories','(fdf_shop_categories.entity_id = n.nid and fdf_shop_categories.delta=0)');
+  $query->leftJoin('field_data_field_local_categories','fdf_local_categories','(fdf_local_categories.entity_id = n.nid and fdf_local_categories.delta=0)');
+  $query->leftJoin('field_data_field_tags','fdf_tags','(fdf_tags.entity_id = n.nid and fdf_tags.delta=0)');
+  $query->fields('n',array('nid','title','type'))
+    ->fields('loc',array('latitude','longitude','street','additional','city','province','postal_code','country'))
+    ->fields('fdf_tel',array('field_phone_value'))
+    ->fields('fdf_email',array('field_email_value'))
+    ->fields('fdf_web',array('field_web_address_value'))
+    ->fields('fm',array('uri'))
+    ->fields('fdf_shop_categories',array('field_shop_categories_tid'))
+    ->fields('fdf_local_categories',array('field_local_categories_tid'))
+    ->fields('fdf_tags',array('field_tags_tid'))
+    ->condition('n.status', 0,'>')
+    ->condition(db_and()
+      ->condition('latitude', 0, '!=')
+      ->condition('longitude', 0, '!=')
+    ); 
+   
+  //$result = $query->execute();
+  $result = $query->execute();   // Fetch as an associative array.
+
+  //if ($result->rowCount() == 0) return 'Sorry, no map data'; 
+
+  $markers = null; 
+  foreach($result as $item){
+      
+
+    if (isset($item->field_tags_tid))
+    {
+      //print "tags<br/>";
+      $item->term = $item->field_tags_tid;
+
+    }
+    if (isset($item->field_shop_categories_tid))
+    {
+      //print "shop<br/>";
+      $item->term = $item->field_shop_categories_tid;
+
+    }
+    if (isset($item->field_local_categories_tid))
+    {
+      //print "local<br/>";
+      $item->term = $item->field_local_categories_tid;
+
+    }
+
+    
+    unset($item->field_tags_tid);
+    unset($item->field_shop_categories_tid);
+    unset($item->field_local_categories_tid);
+    $item->url = url('node/'.$item->nid);
+    if (isset($markers)) $markers .= ",\n";
+    $markers .= ''.drupal_json_encode($item);     
+  }
+
+  $json = '{ '."\n".
+      '"marker_image_url_base":"'.file_create_url('public://styles/map_icon_small/public/map-icons/').'",'."\n".
+      '"item_photo_url_base":"'.file_create_url('public://styles/shop_list/public/').'",'."\n".
+      '"marker_taxonomy":'.$tree.','."\n".
+      '"markers":['.$markers.']'."\n".
+    '}'."\n";
+
+  return $json;
+
+}
+
+
+function holistic_map_render_item($item){
+
+  $h = '<div id="node-'.$item->nid.'" class="node_location clearfix">'.
+    '<div class="photo"><img src="'.str_replace('/files/','/files/styles/shop_list/public/',file_create_url($item->uri)).'" alt="'.$item->field_shop_photos_alt.'" title="'.$item->field_shop_photos_title.'" height="100" width="100" /></div>'.
+    '<h2 class="node-title">'.$item->title.'</h2>'.
+    '<p class="address">';
+  if (isset($item->street) && $item->street != '') $h .= $item->street.'<br/>';
+  if (isset($item->additional) && $item->additional != '') $h .= $item->additional.'<br/>';
+  if (isset($item->city) && $item->city != '') $h .= $item->city.'<br/>';
+  if (isset($item->province) && $item->province != '') $h .= $item->province.'<br/>';
+  if (isset($item->postal_code) && $item->postal_code != '') $h .= $item->postal_code.'<br/>';
+
+  $h .='</p><ul class="contacts">';
+
+  if (isset($item->field_phone_value) && $item->field_phone_value != '') $h .= '<li>t: '.$item->field_phone_value.'</li>';
+  if (isset($item->field_email_value) && $item->field_email_value != '') $h .= '<li>e: <a href="mailto:'.$item->field_email_value.'">'.$item->field_email_value.'</a></li>';
+  if (isset($item->field_web_address_value) && $item->field_web_address_value != '') $h .= '<li>w: <a target="_blank" href="'.$item->field_web_address_value.'">'.str_replace('http://','',$item->field_web_address_value).'</a></li>';
+
+  return $h;
+}
+
+
+function holistic_map_view2(){
+
+  drupal_set_title(t('Interactive Map'));
+//print "hello";
+  $query = db_select('node', 'n');
+  $query->join('location_instance','loci' ,'loci.nid = n.nid');
+  $query->join('location'         ,'loc'  ,'loc.lid = loci.lid');
+  $query->join('field_data_field_phone','fdf_tel','fdf_tel.entity_id = n.nid');
+  $query->join('field_data_field_email','fdf_email','fdf_email.entity_id = n.nid');
+  $query->join('field_data_field_shop_photos','fdf_shop_photos','(fdf_shop_photos.entity_id = n.nid and fdf_shop_photos.delta=0)');
+  $query->join('file_managed','fm','fm.fid = fdf_shop_photos.field_shop_photos_fid');
+  $query->join('field_data_field_shop_categories','fdf_shop_categories','(fdf_shop_categories.entity_id = n.nid and fdf_shop_categories.delta=0)');
+  $query->fields('n',array('nid','title','type'))
+    ->fields('loc',array('latitude','longitude','street','additional','city','province','postal_code','country'))
+    ->fields('fdf_tel',array('field_phone_value'))
+    ->fields('fdf_email',array('field_email_value'))
+    ->fields('fm',array('uri'))
+    ->fields('fdf_shop_photos',array('field_shop_photos_alt','field_shop_photos_title'))
+    ->fields('fdf_shop_categories',array('field_shop_categories_tid'))
+    ->condition('n.status', 0,'>')
+    ->condition(db_and()
+      ->condition('latitude', 0, '!=')
+      ->condition('longitude', 0, '!=')
+     );
+
+   $result = $query->execute();
+
+   if ($result->rowCount() == 0) return 'Sorry, no map data'; 
+ 
+  $output = '';
+
+  //use gmap module
+  // build marker array
+  $markers = array();
+  foreach($result as $item){
+
+    holistic_map_set_icon($item);
+
+    $markers[] =   array(
+      'latitude' => $item->latitude,            // Marker latitude.
+      'longitude' => $item->longitude,           // Marker longitude.
+      'markername' => 'small blue',   // Name of marker set to use.
+      'offset' => 0,                  // Offset in marker set.
+      'text' => holistic_map_render_item($item)
+    );
+  }
+
+  // initialise gmap
+  $map = array(
+    'id' => 'holistic_map',
+    'width' => '720px',
+    'height' => '500px', 
+    'rmtcallback' => 'alert',
+    'markers' => $markers
+  );
+
+  //    'rmtcallback' =>         // Remote callback for ahah info windows.
+
+
+  // create gmap element and return rendered output
+  $element = array( // GMap in Drupal 7 uses drupal_render().
+    '#type' => 'gmap',
+    '#gmap_settings' => $map,
+  );
+  $output = drupal_render($element);
+
+
+  return $output;
+ 
+}
+
+function holistic_map_define_markers(){
+
+  $query = db_select('node', 'n');
+  
+  $js = ''.
+    'Drupal.gmap.iconpath = "'.file_create_url('public://').'";'.
+    'Drupal.gmap.icondata = {  ';
+
+ // drupal_add_js($drupaljs, array('type'=>'inline','scope'=>'header','group'=>JS_THEME,'every_page'=>TRUE));
+
+}
+
+function holistic_map_set_icon(&$item){
+  
+  switch($item->type){
+    case "shop":
+      $term = taxonomy_term_load($item->field_shop_categories_tid);
+      break;
+    default:
+      break;
+  }
+  if (isset($term) && isset($term->field_image['und']))
+    $item->icon = file_create_url($term->field_image['und'][0]['uri']); 
+  //print "<pre>"; print_r($term); print "</pre>";
+}
+
+

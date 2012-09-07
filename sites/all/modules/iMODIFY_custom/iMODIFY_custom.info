@@ -1,0 +1,8 @@
+; $Id$
+name = iMODIFY Custom
+description = iMODIFY customization with core.
+package = custom
+version = "7.x-1.0"
+core = "7.x"
+project = "iMODIFY"
+datestamp = "1340122057"
