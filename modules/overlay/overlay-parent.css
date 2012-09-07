@@ -2,7 +2,7 @@
 html.overlay-open,
 html.overlay-open body {
   height: 100%;
-  overflow: hidden;
+  /*overflow: hidden;*/
 }
 
 #overlay-container,
